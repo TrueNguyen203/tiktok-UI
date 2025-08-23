@@ -1,10 +1,7 @@
-import {useRef} from 'react'
+import { useRef } from 'react';
 
-function App() {  
-
-  return (
-    <h1>hello</h1>
-  );
+function App() {
+    return <h1>hello</h1>;
 }
 
 export default App;

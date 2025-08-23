@@ -1,4 +1,3 @@
-import {useStore, actions} from './store'
 import {useRef} from 'react'
 
 function App() {  

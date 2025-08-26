@@ -37,32 +37,37 @@ function Menu({ children, items = [], hideOnclick = false, onChange = defaultFn 
         });
     };
 
+    const handleBack = () => {
+        setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+
+    const renderResult = (attrs) => (
+        <div className={cx('menu-list')} tabIndex={-1} {...attrs}>
+            <PropperWrapper className={cx('menu-propper')}>
+                {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
+                <div className={cx('menu-body')}>{renderItems()}</div>
+            </PropperWrapper>
+        </div>
+    );
+
+    const handleResetMenu = () => {
+        setHistory((prev) => prev.slice(0, 1));
+    };
+
     return (
-        <Tippy
-            interactive={true}
-            delay={[0, 400]}
-            offset={[12, 8]}
-            hideOnClick={hideOnclick}
-            placement="bottom-end"
-            render={(attrs) => (
-                <div className={cx('menu-list')} tabIndex={-1} {...attrs}>
-                    <PropperWrapper className={cx('menu-propper')}>
-                        {history.length > 1 && (
-                            <Header
-                                title={current.title}
-                                onBack={() => {
-                                    setHistory((prev) => prev.slice(0, prev.length - 1));
-                                }}
-                            />
-                        )}
-                        <div className={cx('menu-body')}>{renderItems()}</div>
-                    </PropperWrapper>
-                </div>
-            )}
-            onHide={() => setHistory((prev) => prev.slice(0, 1))}
-        >
-            {children}
-        </Tippy>
+        <>
+            <Tippy
+                interactive={true}
+                delay={[0, 400]}
+                offset={[12, 8]}
+                hideOnClick={hideOnclick}
+                placement="bottom-end"
+                render={renderResult}
+                onHide={handleResetMenu}
+            >
+                {children}
+            </Tippy>
+        </>
     );
 }
 

@@ -74,7 +74,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = true;
+    const currentUser = false;
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -144,11 +144,9 @@ function Header() {
                         {currentUser ? (
                             <Image className={cx('user-avatar')} alt="Nguyen Van A" src="" />
                         ) : (
-                            <React.Fragment>
-                                <button className={cx('more-btn')}>
-                                    <FontAwesomeIcon icon={faEllipsisVertical} />
-                                </button>
-                            </React.Fragment>
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
                         )}
                     </Menu>
                 </div>

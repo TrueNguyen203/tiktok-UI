@@ -7,11 +7,21 @@ const Image = forwardRef(({ src, alt, className, ...props }, ref) => {
     const [fallBack, setFallBack] = useState('');
 
     const handleError = () => {
-        setFallBack(images.noImage);
+        if (src) {
+            setFallBack(src);
+        } else {
+            setFallBack(images.noImage);
+        }
     };
 
     return (
-        <img className={classNames(styles.wrapper, className)} ref={ref} src={fallBack || src} alt={alt} {...props} />
+        <img
+            className={classNames(styles.wrapper, className)}
+            ref={ref}
+            src={fallBack || handleError()}
+            alt={alt}
+            {...props}
+        />
     );
 });
 

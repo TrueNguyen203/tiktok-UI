@@ -1,13 +1,14 @@
 import Tippy from '@tippyjs/react/headless';
-import { Wrapper as PropperWrapper } from '../../../Propper';
-import AccountItem from '../../../AccountItem';
+import { Wrapper as PropperWrapper } from '../../../components/Propper';
+import AccountItem from '../../../components/AccountItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmarkCircle, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import { useState, useEffect, useRef } from 'react';
 
-import { SearchIcon } from '../../../Icon/Icon';
+import { useDebounce } from '../../../hooks';
+import { SearchIcon } from '../../../components/Icon/Icon';
 
 const cx = classNames.bind(styles);
 
@@ -15,19 +16,37 @@ function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
+    const debounced = useDebounce(searchValue, 300);
 
     useEffect(() => {
+        if (!debounced.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        setLoading(true);
+
+        // Fetch data and filter based on search value
         fetch('https://jsonplaceholder.typicode.com/users')
             .then((res) => res.json())
-            .then((res) => {
-                console.log(res);
+            .then((users) => {
+                const filteredResults = users.filter((user) =>
+                    user.name.toLowerCase().includes(debounced.toLowerCase()),
+                );
+                setSearchResult(filteredResults);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
+        setSearchResult([]);
         inputRef.current.focus();
     };
     const handleHideResult = () => {
@@ -43,10 +62,15 @@ function Search() {
                     <div className={cx('search-result')} tabIndex={-1} {...attrs}>
                         <PropperWrapper>
                             <h4 className={cx('search-title')}>Accounts</h4>
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
-                            <AccountItem />
+                            {searchResult.map((result) => (
+                                <AccountItem
+                                    key={result.id}
+                                    data={{
+                                        nickname: result.username,
+                                        fullName: result.name,
+                                    }}
+                                />
+                            ))}
                         </PropperWrapper>
                     </div>
                 )}
@@ -58,17 +82,15 @@ function Search() {
                         value={searchValue}
                         placeholder="Search accounts and videos"
                         spellCheck={false}
-                        onChange={(e) => {
-                            setSearchValue(e.target.value);
-                        }}
+                        onChange={(e) => setSearchValue(e.target.value)}
                         onFocus={() => setShowResult(true)}
                     />
-                    {!!searchValue && (
+                    {!!searchValue && !loading && (
                         <button className={cx('clear')} onClick={handleClear}>
                             <FontAwesomeIcon icon={faXmarkCircle} />
                         </button>
                     )}
-                    {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner} /> */}
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
                     <button className={cx('search-btn')}>
                         <SearchIcon />

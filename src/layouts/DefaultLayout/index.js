@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import Header from '../components/Header';
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar';
 
 const cx = classNames.bind(styles);
 function DefaultLayout({ children }) {

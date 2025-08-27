@@ -2,18 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 
-import {
-    UploadIcon,
-    InboxIcon,
-    SearchIcon,
-    HomeIcon,
-    HomeActivateIcon,
-    UpseGroupIcon,
-    UserGroupActiveIcon,
-    LiveIcon,
-    LiveActiveIcon,
-    MessageIcon,
-} from '../../../components/Icon/Icon';
+import { UploadIcon, InboxIcon, MessageIcon } from '../../../components/Icon/Icon';
 
 // React components + custom
 import config from '../../../config';
@@ -74,7 +63,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = false;
+    const currentUser = true;
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {

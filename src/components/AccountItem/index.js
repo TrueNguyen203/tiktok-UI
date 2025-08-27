@@ -7,7 +7,7 @@ import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
+function AccountItem({ data, bold = false }) {
     let nickname = 'nguyenvana';
     let fullName = 'NguyenVanA';
     if (data.nickname) {
@@ -22,7 +22,7 @@ function AccountItem({ data }) {
             <Image className={cx('avatar')} src="" alt="Account avatar" />
             <div className={cx('info')}>
                 <h4 className={cx('name')}>
-                    <span>{fullName}</span>
+                    <span className={cx({ bold })}>{fullName}</span>
                     <FontAwesomeIcon className={cx('check-icon')} icon={faCheckCircle} />
                 </h4>
                 <span className={cx('username')}>{nickname}</span>

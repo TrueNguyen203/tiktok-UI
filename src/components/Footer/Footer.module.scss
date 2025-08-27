@@ -1,0 +1,26 @@
+.wrapper {
+    padding: 12px;
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-text {
+    margin: 6px 2px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: rgba(22, 24, 35, 0.6) !important;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.made-by {
+    font-size: 1.4rem;
+    color: rgba(22, 24, 35, 0.5) !important;
+    margin: 8px 0;
+}

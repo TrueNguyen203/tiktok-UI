@@ -1,0 +1,23 @@
+.wrapper {
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+    padding: 12px 8px;
+}
+
+.label {
+    font-weight: 700;
+    font-size: 1.6rem;
+    padding: 0 4px;
+}
+
+.more-btn {
+    width: 40%;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--primary);
+    padding: 8px;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

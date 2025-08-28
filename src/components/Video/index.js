@@ -2,7 +2,17 @@ import { useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Video.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVolumeHigh, faVolumeXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+    faVolumeHigh,
+    faVolumeXmark,
+    faHeart,
+    faCommentDots,
+    faShare,
+    faBookmark,
+} from '@fortawesome/free-solid-svg-icons';
+import Button from '../Button';
+import Image from '../Image';
+import { PlusIcon } from '../Icon/Icon';
 
 const cx = classNames.bind(styles);
 
@@ -44,6 +54,24 @@ function Video({ link, width, height, file_type, userId, userName }) {
                         <button className={cx('volume-btn')} onClick={handleVolume}>
                             <FontAwesomeIcon icon={isMuted ? faVolumeXmark : faVolumeHigh} />
                         </button>
+                    </div>
+                    <div className={cx('action-wrapper')}>
+                        <div className={cx('action-btn', 'sub-wrapper')}>
+                            <Image alt="avatart" className={cx('avatar')} />
+                            <button className={cx('sub-btn')}>{<PlusIcon height="2rem" width="2rem" />}</button>
+                        </div>
+                        <Button className={cx('action-btn')}>
+                            <FontAwesomeIcon icon={faHeart} />
+                        </Button>
+                        <Button className={cx('action-btn')}>
+                            <FontAwesomeIcon icon={faCommentDots} />
+                        </Button>
+                        <Button className={cx('action-btn')}>
+                            <FontAwesomeIcon icon={faBookmark} />
+                        </Button>
+                        <Button className={cx('action-btn')}>
+                            <FontAwesomeIcon icon={faShare} />
+                        </Button>
                     </div>
                 </div>
             )}

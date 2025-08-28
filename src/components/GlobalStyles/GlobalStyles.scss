@@ -17,6 +17,11 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    overflow: hidden; // 🚫 prevent window scroll
+}
+
 html {
     font-size: 62.5%;
 }

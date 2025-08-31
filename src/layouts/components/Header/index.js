@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
+// Custom icons
 import { UploadIcon, InboxIcon, MessageIcon } from '../../../components/Icon/Icon';
 
 // React components + custom
@@ -63,7 +65,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const currentUser = true;
+    const [currentUser, setCurrentUser] = useState(false);
 
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -72,6 +74,14 @@ function Header() {
                 break;
             default:
         }
+    };
+
+    useEffect(() => {
+        console.log('currentUser changed to:', currentUser);
+    }, [currentUser]);
+
+    const handleUser = () => {
+        setCurrentUser((prev) => !prev);
     };
 
     const userMenu = [
@@ -94,8 +104,8 @@ function Header() {
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Logout',
-            to: '/logout',
             separate: true,
+            onClick: handleUser,
         },
     ];
 
@@ -126,7 +136,9 @@ function Header() {
                     ) : (
                         <React.Fragment>
                             <Button text>Upload</Button>
-                            <Button primary>Login</Button>
+                            <Button primary onClick={handleUser}>
+                                Login
+                            </Button>
                         </React.Fragment>
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>

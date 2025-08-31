@@ -8,8 +8,14 @@ function MenuItem({ data, onClick }) {
     const classes = cx('menu-item', {
         separate: data.separate,
     });
+
+    const handleClick = () => {
+        if (data.onClick) data.onClick(); // Call the menu item's onClick
+        if (onClick) onClick(); // Call the parent's onClick
+    };
+
     return (
-        <Button className={classes} leftIcon={data.icon} to={data.to} onClick={onClick}>
+        <Button className={classes} leftIcon={data.icon} to={data.to} onClick={handleClick}>
             {data.title}
         </Button>
     );

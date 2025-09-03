@@ -123,7 +123,9 @@ function Header() {
                         <React.Fragment>
                             <Tippy delay={[0, 200]} content="Upload Video" placement="bottom">
                                 <button className={cx('action-btn')}>
-                                    <UploadIcon />
+                                    <Link to={config.routes.upload}>
+                                        <UploadIcon />
+                                    </Link>
                                 </button>
                             </Tippy>
                             <button className={cx('action-btn')}>
@@ -135,7 +137,9 @@ function Header() {
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
-                            <Button text>Upload</Button>
+                            <Button text to={config.routes.upload}>
+                                Upload
+                            </Button>
                             <Button primary onClick={handleUser}>
                                 Login
                             </Button>
